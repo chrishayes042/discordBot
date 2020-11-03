@@ -1,14 +1,11 @@
-package trivia;
+package infoPing;
+
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.io.FileInputStream;
-
-
-public class trivia extends ListenerAdapter {
-    boolean startGame = false;
-    int i = 0;
+public class infoPing {
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 
@@ -18,8 +15,8 @@ public class trivia extends ListenerAdapter {
         String answer = event.getMember().getUser().getName();
 
 
-        if(info[0].equalsIgnoreCase("info")){
-            event.getChannel().sendMessage("@"+name).queue();
+        if (info[0].equalsIgnoreCase("info")) {
+            event.getChannel().sendMessage("@" + name).queue();
             event.getChannel().sendMessage("Bot info").queue();
             event.getChannel().sendMessage("#############################################").queue();
             event.getChannel().sendMessage("This is a trivia bot").queue();
@@ -30,30 +27,17 @@ public class trivia extends ListenerAdapter {
         }
 
 
-       /* if (channelSent.equalsIgnoreCase("trivia")) {
-
-            if (!event.getMember().getUser().isBot()) {
-                event.getChannel().sendMessage(name + " Started the Trivia Game!").queue();
-
-            }
-        }
-        System.out.println(startGame);
-
-
-        if(startGame = true){
-            event.getChannel().sendMessage("What is 1 + 1 ?").queue();
-
-        }
-
-
-
-        if (channelSent.equalsIgnoreCase("2")) {
-            event.getChannel().sendMessage(name + " Got it right! The answer is 2").queue();
-
-
-       }
-        */
-
     }
+    public void onMessageReceived(MessageReceivedEvent event){
 
+        Message msg = event.getMessage();
+        if (msg.getContentRaw().equals("!ping")){
+            MessageChannel channel = event.getChannel();
+            long time = System.currentTimeMillis();
+            channel.sendMessage("Pong!")
+                    .queue(response ->{
+                        response.editMessageFormat("Pong: %d ms", System.currentTimeMillis() - time).queue();
+                    });
+        }
+    }
 }

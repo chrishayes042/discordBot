@@ -1,18 +1,31 @@
+import TriviaGame.triviaGame;
 import events.HelloEvents;
+import infoPing.infoPing;
+import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import trivia.trivia;
+import net.dv8tion.jda.api.exceptions.RateLimitedException;
+
 
 import javax.security.auth.login.LoginException;
+import java.io.IOException;
 
 public class Bot {
-    public static String prefix = "~";
 
-    public static void main(String[]args) throws LoginException {
-        JDA jda = JDABuilder.createDefault("NzcyNTY3Mjg0NzAyNzczMjY4.X58jWg.a2eCDwuBjNug1Oaw5UOE1i8tD28").build();
+
+    public static void main(String[]args) throws LoginException, IOException, IllegalArgumentException, RateLimitedException {
+        JDA jda = JDABuilder.createDefault("token").build();
+
+        new JDABuilder(AccountType.BOT);
+
+
+
 
         jda.addEventListener(new HelloEvents());
-        jda.addEventListener(new trivia());
+        jda.addEventListener(new infoPing());
+        jda.addEventListener(new triviaGame());
+
+
 
 
     }
