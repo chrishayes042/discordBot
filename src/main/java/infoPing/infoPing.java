@@ -4,10 +4,11 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class infoPing {
+public class infoPing extends ListenerAdapter{
 
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+    public void onMessageReceived(MessageReceivedEvent event) {
 
         String channelSent = event.getMessage().getContentRaw();
         String[] info = event.getMessage().getContentRaw().split(" ");
@@ -15,20 +16,20 @@ public class infoPing {
         String answer = event.getMember().getUser().getName();
 
 
-        if (info[0].equalsIgnoreCase("info")) {
-            event.getChannel().sendMessage("@" + name).queue();
+        if (info[0].equalsIgnoreCase("!botinfo")) {
+
             event.getChannel().sendMessage("Bot info").queue();
-            event.getChannel().sendMessage("#############################################").queue();
-            event.getChannel().sendMessage("This is a trivia bot").queue();
-            event.getChannel().sendMessage("Say 'trivia' to start the game.").queue();
-            event.getChannel().sendMessage("Say 'stop' to stop the game.").queue();
-            event.getChannel().sendMessage("#############################################").queue();
+            event.getChannel().sendMessage("-----------------------").queue();
+            event.getChannel().sendMessage("This is a bot. Don't fuck around with me").queue();
+            event.getChannel().sendMessage("Say 'trivia start' to start the game.").queue();
+            event.getChannel().sendMessage("Say 'trivia stop' to stop the game.").queue();
+            event.getChannel().sendMessage("-----------------------").queue();
 
         }
 
 
     }
-    public void onMessageReceived(MessageReceivedEvent event){
+    public void onMsgReceived(MessageReceivedEvent event){
 
         Message msg = event.getMessage();
         if (msg.getContentRaw().equals("!ping")){
@@ -36,7 +37,8 @@ public class infoPing {
             long time = System.currentTimeMillis();
             channel.sendMessage("Pong!")
                     .queue(response ->{
-                        response.editMessageFormat("Pong: %d ms", System.currentTimeMillis() - time).queue();
+                        response.editMessageFormat("Pong: %d ms",
+                                System.currentTimeMillis() - time).queue();
                     });
         }
     }
