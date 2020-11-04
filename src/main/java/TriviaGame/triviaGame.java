@@ -26,6 +26,8 @@ public class triviaGame extends ListenerAdapter {
         // Get user name
         String name = Objects.requireNonNull(event.getMember()).getUser().getName();
 
+        String member = event.getMember().getAsMention();
+
         // Message in chat to start the game. The first word has to be 'trivia'
         if(triviaStartString[0].equalsIgnoreCase("trivia")) {
             if (triviaStartString[1].equalsIgnoreCase("start")) {
@@ -42,7 +44,8 @@ public class triviaGame extends ListenerAdapter {
                 Random rand = new Random();
 
                 int rand_int1 = rand.nextInt(5);
-
+                // send out random question from the questions array.
+                // TODO get it to send only one message and wait for answer.
                 event.getChannel().sendMessage(questions[rand_int1]).complete();
             }
         }
@@ -51,7 +54,7 @@ public class triviaGame extends ListenerAdapter {
         // Message in chat to start the game. The first word has to be 'trivia'
         if(triviaStartString[0].equalsIgnoreCase("trivia")) {
             if (triviaStartString[1].equalsIgnoreCase("stop")) {
-                event.getChannel().sendMessage(name + " stopped the trivia game!").queue();
+                event.getChannel().sendMessage(member + " stopped the trivia game!").queue();
 
                 //setting to false to exit question loop
                 triviaStart = false;
