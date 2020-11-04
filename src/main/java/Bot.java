@@ -14,7 +14,7 @@ public class Bot {
 
 
     public static void main(String[]args) throws LoginException, IOException, IllegalArgumentException, RateLimitedException {
-        JDA jda = JDABuilder.createDefault("NzcyNTY3Mjg0NzAyNzczMjY4.X58jWg.ss5GR4wYpoNFGFm5QBaxDA2wuik").build();
+        JDA jda = JDABuilder.createDefault("token").build();
 
 
 
